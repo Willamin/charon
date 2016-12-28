@@ -12,3 +12,6 @@ A command line application to manage project directories.
 - `$ charon init orange`
 - `$ charon clone pretzel git@github.com:pretzel/pretzel.git`
 - `$ charon destroy apple`
+
+## Development
+Use `$ mix escript.build` to build the script.

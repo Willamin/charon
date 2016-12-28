@@ -6,9 +6,13 @@ defmodule Charon do
   end
 
   def main(args) do
-    args
-    |> hd
-    |> choose_command(tl(args))
+    if length(args) > 0 do
+      args
+      |> hd
+      |> choose_command(tl(args))
+    else
+      help
+    end
   end
 
   def stdout(message) do
@@ -21,28 +25,23 @@ defmodule Charon do
 
   def choose_command(command, args) do
     cond do
-      ~r/version/ |> Regex.match?(command) -> version(args)
-      ~r/help/    |> Regex.match?(command) -> help(args)
+      ~r/version/ |> Regex.match?(command) -> version
+      ~r/help/    |> Regex.match?(command) -> help
       ~r/list/    |> Regex.match?(command) -> list(args)
       true -> IO.puts("bad command: #{command}")
     end
   end
 
-  def version(_args) do
+  def version(_args \\ []) do
     stdout "Charon #{@project[:version]}"
   end
 
-  def help(_args) do
+  def help(_args \\ []) do
     stdout "Usage: charon [command] [project name] [options]"
   end
 
-  def list(args) do
-    search = if length(args) > 0 do
-      hd(args)
-    else
-      ""
-    end
-
+  def list([search | _args]) do
+    search = if !search do "." else search end
     "#{projects_dir}"
     |> File.ls
     |> elem(1)
