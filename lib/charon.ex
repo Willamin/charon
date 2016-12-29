@@ -16,11 +16,15 @@ defmodule Charon do
   end
 
   def stdout(message) do
-    IO.puts(:stdio, message)
+    IO.puts(:stdio, "echo #{message}")
+  end
+
+  def change_dir(dir) do
+    IO.puts(:stdio, "cd #{dir}")
   end
 
   def stderr(message) do
-    IO.puts(:stderr, message)
+    IO.puts(:stderr, "#{message}")
   end
 
   def choose_command(command, args) do
@@ -28,6 +32,7 @@ defmodule Charon do
       ~r/version/ |> Regex.match?(command) -> version
       ~r/help/    |> Regex.match?(command) -> help
       ~r/list/    |> Regex.match?(command) -> list(args)
+      ~r/debug/   |> Regex.match?(command) -> debug
       true -> IO.puts("bad command: #{command}")
     end
   end
@@ -36,12 +41,17 @@ defmodule Charon do
     stdout "Charon #{@project[:version]}"
   end
 
+  def debug(_args \\ []) do
+    stdout "to tmp!"
+    change_dir "/tmp"
+  end
+
   def help(_args \\ []) do
     stdout "Usage: charon [command] [project name] [options]"
   end
 
-  def list([search | _args]) do
-    search = if !search do "." else search end
+  def list(search) do
+    search = if (length(search) < 1) do "." else search end
     "#{projects_dir}"
     |> File.ls
     |> elem(1)
