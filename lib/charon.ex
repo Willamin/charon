@@ -33,7 +33,7 @@ defmodule Charon do
       ~r/help/    |> Regex.match?(command) -> help
       ~r/list/    |> Regex.match?(command) -> list(args)
       ~r/debug/   |> Regex.match?(command) -> debug
-      true -> IO.puts("bad command: #{command}")
+      true -> goto_wrapper([command] ++ args)
     end
   end
 
@@ -50,7 +50,7 @@ defmodule Charon do
     stdout "Usage: charon [command] [project name] [options]"
   end
 
-  def list(search) do
+  def find_files(search) do
     search = if (length(search) < 1) do "." else search end
     "#{projects_dir}"
     |> File.ls
@@ -59,10 +59,27 @@ defmodule Charon do
       ~r/^#{search}/
       |> Regex.match?(x)
     end)
+  end
+
+  def list(search) do
+    find_files(search)
     |> Enum.reduce(0, fn(x, acc) ->
       IO.ANSI.bright() <> IO.ANSI.blue() <> x
       |> stdout
       acc + 1
     end)
+  end
+
+  def goto_wrapper(search) do
+    projects = find_files(search)
+    if (length(projects) == 1) do
+      projects |> hd |> goto
+    else
+      list(search)
+    end
+  end
+
+  def goto(project) do
+    change_dir "#{projects_dir}#{project}"
   end
 end
