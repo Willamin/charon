@@ -11,7 +11,7 @@ defmodule Charon do
       |> hd
       |> choose_command(tl(args))
     else
-      help
+      list
     end
   end
 
@@ -61,7 +61,7 @@ defmodule Charon do
     end)
   end
 
-  def list(search) do
+  def list(search \\ []) do
     find_files(search)
     |> Enum.reduce(0, fn(x, acc) ->
       IO.ANSI.bright() <> IO.ANSI.blue() <> x
