@@ -14,4 +14,4 @@ A command line application to manage project directories.
 - `$ charon destroy apple`
 
 ## Development
-Use `$ mix escript.build` to build the script.
+Use `$ mix charon.build` to build the script.
