@@ -23,6 +23,10 @@ defmodule Charon do
     IO.puts(:stdio, "cd #{dir}")
   end
 
+  def git(command) do
+    IO.puts(:stdio, "git #{command}")
+  end
+
   def stderr(message) do
     IO.puts(:stderr, "#{message}")
   end
@@ -33,6 +37,7 @@ defmodule Charon do
       ~r/help/    |> Regex.match?(command) -> help
       ~r/list/    |> Regex.match?(command) -> list(args)
       ~r/debug/   |> Regex.match?(command) -> debug
+      ~r/clone/   |> Regex.match?(command) -> clone(args)
       true -> goto_wrapper([command] ++ args)
     end
   end
@@ -81,5 +86,11 @@ defmodule Charon do
 
   def goto(project) do
     change_dir "#{projects_dir}#{project}"
+  end
+
+  def clone(uri) do
+    change_dir projects_dir
+    git "clone #{uri}"
+    change_dir "-"
   end
 end
