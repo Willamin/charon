@@ -38,6 +38,7 @@ defmodule Charon do
       ~r/list/    |> Regex.match?(command) -> list(args)
       ~r/debug/   |> Regex.match?(command) -> debug
       ~r/clone/   |> Regex.match?(command) -> clone(args)
+      ~r/init/    |> Regex.match?(command) -> init(args)
       true -> goto_wrapper([command] ++ args)
     end
   end
@@ -91,6 +92,12 @@ defmodule Charon do
   def clone(uri) do
     change_dir projects_dir
     git "clone #{uri}"
+    change_dir "-"
+  end
+
+  def init(name) do
+    change_dir projects_dir
+    git "init #{name}"
     change_dir "-"
   end
 end
