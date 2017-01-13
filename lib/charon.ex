@@ -23,6 +23,10 @@ defmodule Charon do
     IO.puts(:stdio, "cd #{dir}")
   end
 
+  def make_dir(dir) do
+    IO.puts(:stdio, "mkdir #{dir}")
+  end
+
   def git(command) do
     IO.puts(:stdio, "git #{command}")
   end
@@ -44,6 +48,7 @@ defmodule Charon do
       ~r/clone/   |> Regex.match?(command) -> clone(args)
       ~r/init/    |> Regex.match?(command) -> init(args)
       ~r/destroy/ |> Regex.match?(command) -> destroy(args)
+      ~r/new/     |> Regex.match?(command) -> new(args)
       true -> goto_wrapper([command] ++ args)
     end
   end
@@ -108,5 +113,9 @@ defmodule Charon do
 
   def destroy(name) do
     remove "#{projects_dir}#{name}"
+  end
+
+  def new(project) do
+    make_dir "#{projects_dir}#{project}"
   end
 end
