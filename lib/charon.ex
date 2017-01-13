@@ -2,7 +2,7 @@ defmodule Charon do
   @project Charon.Mixfile.project()
 
   def projects_dir do
-    projects = System.get_env("CHARON_PROJECT_DIR") || "/Documents/projects"
+    projects = System.get_env("CHARON_PROJECT_DIR") || "/Documents/projects/"
     System.user_home() <> projects
   end
 
