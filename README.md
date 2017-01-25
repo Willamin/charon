@@ -13,5 +13,3 @@ A command line application to manage project directories.
 - `$ charon clone pretzel git@github.com:pretzel/pretzel.git`
 - `$ charon destroy apple`
 
-## Development
-Use `$ mix charon.build` to build the script.
