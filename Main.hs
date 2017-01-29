@@ -17,6 +17,11 @@ parse ("version":_) =
   |> (++) "charon v"
   |> stdout
 
+parse ("clone":[a]) = do
+  let part1 = cd "\n"
+  let part2 = git "clone" a
+  part1 ++ "\n" ++ part2
+
 parse [f] =
   projects_dir
   |> ls
@@ -54,7 +59,7 @@ cd new_dir =
   |> (++) ("cd " ++ projects_dir ++ "/")
 
 git command args =
-  "git " ++ command ++ args
+  "git " ++ command ++ " " ++ args
 
 projects_dir =
   getHomeDirectory
