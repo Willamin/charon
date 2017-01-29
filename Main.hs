@@ -5,10 +5,17 @@ import System.Directory
 import System.IO.Unsafe
 import System.Environment
 import Debug.Trace
+import Paths_charon (version)
+import Data.Version (showVersion)
 
 (|>) = flip($)
 
 main = do a <- getArgs; parse a |> putStrLn
+
+parse ("version":[]) =
+  showVersion version
+  |> (++) "charon v"
+  |> stdout
 
 parse [] =
   projects_dir
