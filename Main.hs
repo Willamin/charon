@@ -12,14 +12,9 @@ import Data.Version (showVersion)
 
 main = do a <- getArgs; parse a |> putStrLn
 
-parse ("version":[]) =
+parse ("version":_) =
   showVersion version
   |> (++) "charon v"
-  |> stdout
-
-parse [] =
-  projects_dir
-  |> ls
   |> stdout
 
 parse [f] =
@@ -29,6 +24,10 @@ parse [f] =
   |> (filter (project_filter f))
   |> choose
 
+parse [] =
+  projects_dir
+  |> ls
+  |> stdout
 
 project_filter "" _ = True
 project_filter _ "" = False
@@ -54,11 +53,14 @@ cd new_dir =
   |> lines |> head
   |> (++) ("cd " ++ projects_dir ++ "/")
 
+git command args =
+  "git " ++ command ++ args
+
 projects_dir =
   getHomeDirectory
   |> unsafePerformIO
   ++ "/Documents/projects"
 
-ls filter =
-  readProcess "ls" [filter] []
+ls f =
+  readProcess "ls" [f] []
   |> unsafePerformIO
