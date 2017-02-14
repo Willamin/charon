@@ -18,12 +18,15 @@ defmodule Charon.Cli do
     cond do
       ~r/version/ |> Regex.match?(command) -> version
       ~r/help/    |> Regex.match?(command) -> help
-      ~r/list/    |> Regex.match?(command) -> list(args)
       ~r/debug/   |> Regex.match?(command) -> debug
+
+      ~r/list/    |> Regex.match?(command) -> list(args)
+      ~r/new/     |> Regex.match?(command) -> new(args)
+      ~r/destroy/ |> Regex.match?(command) -> destroy(args)
+
       ~r/clone/   |> Regex.match?(command) -> clone(args)
       ~r/init/    |> Regex.match?(command) -> init(args)
-      ~r/destroy/ |> Regex.match?(command) -> destroy(args)
-      ~r/new/     |> Regex.match?(command) -> new(args)
+
       true -> goto_wrapper([command] ++ args)
     end
   end

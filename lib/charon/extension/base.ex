@@ -1,7 +1,7 @@
 defmodule Charon.Extension.Base do
   import Charon.Util
   @project Charon.Mixfile.project()
-  
+
   def version(_args \\ []) do
     stdout "Charon #{@project[:version]}"
   end
