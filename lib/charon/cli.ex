@@ -27,8 +27,7 @@ defmodule Charon.Cli do
   end
 
   def projects_dir do
-    projects = System.get_env("CHARON_PROJECT_DIR") || "/Documents/projects/"
-    System.user_home() <> projects
+    System.get_env("CHARON_PROJECT_DIR") || Application.get_env(:charon, :projects_dir)
   end
 
   def version(_args \\ []) do
