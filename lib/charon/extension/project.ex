@@ -20,7 +20,7 @@ defmodule Charon.Extension.Project do
     end)
   end
 
-  def goto_wrapper(search) do
+  def list_or_goto(search) do
     projects = find_files(search)
     if (length(projects) == 1) do
       projects |> hd |> goto
@@ -29,18 +29,11 @@ defmodule Charon.Extension.Project do
     end
   end
 
-  def goto(project) do
-    change_dir "#{projects_dir}#{project}"
-  end
+  def goto(project), do: change_dir "#{projects_dir}#{project}"
 
+  def destroy(name), do: remove "#{projects_dir}#{name}"
 
-  def destroy(name) do
-    remove "#{projects_dir}#{name}"
-  end
-
-  def new(project) do
-    make_dir "#{projects_dir}#{project}"
-  end
+  def new(project), do: make_dir "#{projects_dir}#{project}"
 
   def remove(command), do: IO.puts(:stdio, "rm -rf #{command}")
 end

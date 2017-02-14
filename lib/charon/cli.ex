@@ -1,5 +1,4 @@
 defmodule Charon.Cli do
-  import Charon.Util
   import Charon.Extension.Base
   import Charon.Extension.Project
   import Charon.Extension.Git
@@ -27,7 +26,7 @@ defmodule Charon.Cli do
       ~r/clone/   |> Regex.match?(command) -> clone(args)
       ~r/init/    |> Regex.match?(command) -> init(args)
 
-      true -> goto_wrapper([command] ++ args)
+      true -> list_or_goto([command] ++ args)
     end
   end
 end
