@@ -30,10 +30,7 @@ defmodule Charon.Extension.Project do
   end
 
   def goto(project), do: change_dir "#{projects_dir}#{project}"
-
   def destroy(name), do: remove "#{projects_dir}#{name}"
-
   def new(project), do: make_dir "#{projects_dir}#{project}"
-
   def remove(command), do: IO.puts(:stdio, "rm -rf #{command}")
 end
