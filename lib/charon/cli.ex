@@ -1,7 +1,5 @@
 defmodule Charon.Cli do
-  import Charon.Extension.Base
-  import Charon.Extension.Project
-  import Charon.Extension.Git
+  import Charon.Extension.{Base,Project, Git}
 
   def main(args) do
     if length(args) > 0 do
