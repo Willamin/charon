@@ -1,22 +1,24 @@
 defmodule Charon.Cli do
   import Charon.Macros
-  import_extensions
+  import_extensions()
 
   def main(args) do
+    list_of_commands = []
+    load_commands()
     if length(args) > 0 do
       args
       |> hd
       |> choose_command(tl(args))
     else
-      list
+      list()
     end
   end
 
   def choose_command(command, args) do
     cond do
-      ~r/version/ |> Regex.match?(command) -> version
-      ~r/help/    |> Regex.match?(command) -> help
-      ~r/debug/   |> Regex.match?(command) -> debug
+      ~r/version/ |> Regex.match?(command) -> version()
+      ~r/help/    |> Regex.match?(command) -> help()
+      ~r/debug/   |> Regex.match?(command) -> debug()
 
       ~r/list/    |> Regex.match?(command) -> list(args)
       ~r/new/     |> Regex.match?(command) -> new(args)

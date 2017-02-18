@@ -13,4 +13,5 @@ defmodule Charon.Extension.Git do
   end
 
   def git(command), do: IO.puts(:stdio, "git #{command}")
+  def commands, do: []
 end

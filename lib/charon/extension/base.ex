@@ -10,4 +10,6 @@ defmodule Charon.Extension.Base do
   end
 
   def help(_args \\ []), do: stdout "Usage: charon [command] [project name] [options]"
+
+  def commands, do: []
 end
