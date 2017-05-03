@@ -14,7 +14,7 @@ defmodule Charon.Extension.Project do
   def list(search \\ []) do
     find_files(search)
     |> Enum.reduce(0, fn(x, acc) ->
-      IO.ANSI.bright() <> IO.ANSI.blue() <> x
+      IO.ANSI.bright() <> IO.ANSI.blue() <> x <> IO.ANSI.reset()
       |> stdout
       acc + 1
     end)
