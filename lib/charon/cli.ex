@@ -3,8 +3,6 @@ defmodule Charon.Cli do
   import_extensions()
 
   def main(args) do
-    list_of_commands = []
-    load_commands()
     if length(args) > 0 do
       args
       |> hd
@@ -14,8 +12,12 @@ defmodule Charon.Cli do
     end
   end
 
+  def foo, do: IO.puts "hello"
+
   def choose_command(command, args) do
     cond do
+      match_and_run(~r/foo/, &foo/0)
+
       ~r/version/ |> Regex.match?(command) -> version()
       ~r/help/    |> Regex.match?(command) -> help()
       ~r/debug/   |> Regex.match?(command) -> debug()
