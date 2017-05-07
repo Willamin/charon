@@ -1,13 +1,14 @@
 defmodule Charon.Extension.Git do
   import Charon.Util
+
   def clone(uri) do
-    change_dir projects_dir
+    change_dir projects_dir()
     git "clone #{uri}"
     change_dir "-"
   end
 
   def init(name) do
-    change_dir projects_dir
+    change_dir projects_dir()
     git "init #{name}"
     change_dir "-"
   end

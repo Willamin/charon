@@ -12,22 +12,18 @@ defmodule Charon.Cli do
     end
   end
 
-  def foo, do: IO.puts "hello"
-
   def choose_command(command, args) do
     cond do
-      match_and_run(~r/foo/, &foo/0)
+      ~r/version/ |> Regex.match?(command) -> Charon.Extension.Base.version()
+      ~r/help/    |> Regex.match?(command) -> Charon.Extension.Base.help()
+      ~r/debug/   |> Regex.match?(command) -> Charon.Extension.Base.debug()
 
-      ~r/version/ |> Regex.match?(command) -> version()
-      ~r/help/    |> Regex.match?(command) -> help()
-      ~r/debug/   |> Regex.match?(command) -> debug()
+      ~r/list/    |> Regex.match?(command) -> Charon.Extension.Project.list(args)
+      ~r/new/     |> Regex.match?(command) -> Charon.Extension.Project.new(args)
+      ~r/destroy/ |> Regex.match?(command) -> Charon.Extension.Project.destroy(args)
 
-      ~r/list/    |> Regex.match?(command) -> list(args)
-      ~r/new/     |> Regex.match?(command) -> new(args)
-      ~r/destroy/ |> Regex.match?(command) -> destroy(args)
-
-      ~r/clone/   |> Regex.match?(command) -> clone(args)
-      ~r/init/    |> Regex.match?(command) -> init(args)
+      ~r/clone/   |> Regex.match?(command) -> Charon.Extension.Git.clone(args)
+      ~r/init/    |> Regex.match?(command) -> Charon.Extension.Git.init(args)
 
       true -> list_or_goto([command] ++ args)
     end

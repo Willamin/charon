@@ -1,8 +1,9 @@
 defmodule Charon.Extension.Project do
   import Charon.Util
+
   def find_files(search) do
     search = if (length(search) < 1) do "." else search end
-    "#{projects_dir}"
+    "#{projects_dir()}"
     |> File.ls
     |> elem(1)
     |> Enum.filter(fn(x) ->
@@ -29,9 +30,9 @@ defmodule Charon.Extension.Project do
     end
   end
 
-  def goto(project), do: change_dir "#{projects_dir}#{project}"
-  def destroy(name), do: remove "#{projects_dir}#{name}"
-  def new(project), do: make_dir "#{projects_dir}#{project}"
+  def goto(project), do: change_dir "#{projects_dir()}#{project}"
+  def destroy(name), do: remove "#{projects_dir()}#{name}"
+  def new(project), do: make_dir "#{projects_dir()}#{project}"
   def remove(command), do: IO.puts(:stdio, "rm -rf #{command}")
   def commands, do: []
 end
