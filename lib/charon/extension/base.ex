@@ -10,20 +10,21 @@ defmodule Charon.Extension.Base do
   end
 
   def help(_args \\ []) do
-    "Usage: charon [command] [project name] [options]" |> stdout
-    ""            |> stdout
-    "Base:"       |> stdout
-    "├── version" |> stdout
-    "├── help"    |> stdout
-    "└── debug"   |> stdout
-    ""            |> stdout
-    "Projects:"   |> stdout
-    "├── list"    |> stdout
-    "├── new"     |> stdout
-    "└── destroy" |> stdout
-    ""            |> stdout
-    "Git:"        |> stdout
-    "├── clone"   |> stdout
-    "└── init"    |> stdout
+    [ "Usage: charon [command] [project name] [options]",
+      "",
+      "Base:",
+      "├── version",
+      "├── help",
+      "└── debug"  ,
+      "",
+      "Projects:",
+      "├── list",
+      "├── new",
+      "└── destroy",
+      "",
+      "Git:",
+      "├── clone",
+      "└── init"
+    ] |> Enum.each(&stdout/1)
   end
 end
