@@ -1,9 +1,9 @@
 defmodule Charon.Macros do
-  defmacro import_extensions do
+  defmacro require_extensions do
     for_extensions(fn(mod) ->
-      IO.puts "Expanding macro for import_extensions for #{mod}"
+      IO.puts "Expanding macro for require_extensions for #{mod}"
       quote do
-        import unquote(mod)
+        require unquote(mod)
       end
     end)
   end

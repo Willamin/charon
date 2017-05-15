@@ -15,4 +15,11 @@ defmodule Charon.Extension.Git do
 
   def git(command), do: IO.puts(:stdio, "git #{command}")
   def commands, do: []
+
+  def help() do
+    [ "Git:",
+      "├── clone",
+      "└── init"
+    ]
+  end
 end

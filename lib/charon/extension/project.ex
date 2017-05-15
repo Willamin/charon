@@ -35,4 +35,12 @@ defmodule Charon.Extension.Project do
   def new(project), do: make_dir "#{projects_dir()}#{project}"
   def remove(command), do: IO.puts(:stdio, "rm -rf #{command}")
   def commands, do: []
+
+  def help() do
+    [ "Projects:",
+      "├── list",
+      "├── new",
+      "└── destroy"
+    ]
+  end
 end
