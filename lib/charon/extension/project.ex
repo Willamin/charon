@@ -6,6 +6,11 @@ defmodule Charon.Extension.Project do
     "#{projects_dir()}"
     |> File.ls
     |> elem(1)
+    |> Enum.filter(fn(x)->
+      ~r/^.DS_Store/
+      |> Regex.match?(x)
+      |> Kernel.not
+    end)
     |> Enum.filter(fn(x) ->
       ~r/^#{search}/
       |> Regex.match?(x)
