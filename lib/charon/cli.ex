@@ -22,6 +22,7 @@ defmodule Charon.Cli do
 
       ~r/list/    |> Regex.match?(command) -> Charon.Extension.Project.list(args)
       ~r/new/     |> Regex.match?(command) -> Charon.Extension.Project.new(args)
+      ~r/edit/    |> Regex.match?(command) -> Charon.Extension.Project.edit(args)
       ~r/destroy/ |> Regex.match?(command) -> Charon.Extension.Project.destroy(args)
 
       ~r/clone/   |> Regex.match?(command) -> Charon.Extension.Git.clone(args)

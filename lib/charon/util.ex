@@ -5,4 +5,5 @@ defmodule Charon.Util do
   def change_dir(dir), do: IO.puts(:stdio, "cd #{dir}")
   def make_dir(dir),   do: IO.puts(:stdio, "mkdir #{dir}")
   def stderr(message), do: IO.puts(:stderr, "#{message}")
+  def sh(command),     do: IO.puts(:stdio, "#{command}")
 end
