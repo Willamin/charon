@@ -29,6 +29,8 @@ defmodule Charon.Cli do
       ~r/init/    |> Regex.match?(command) -> Charon.Extension.Git.init(args)
 
       ~r/home|~/  |> Regex.match?(command) -> Charon.Extension.Navigation.home()
+      ~r/docs|~/  |> Regex.match?(command) -> Charon.Extension.Navigation.docs()
+      ~r/down|~/  |> Regex.match?(command) -> Charon.Extension.Navigation.down()
 
       true -> Charon.Extension.Project.list_or_goto([command] ++ args)
     end
